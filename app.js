@@ -12,6 +12,8 @@ app.listen(PORT, () => {
 
   
   console.log("test")
+
+  console.log("hello Neven, nice to meet you :)")
 });
 
 
