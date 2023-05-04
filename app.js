@@ -7,4 +7,11 @@ const PORT = 1337;
 
 app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`);
+  console.log("hello world");
+
+
+  
+  console.log("test")
 });
+
+
