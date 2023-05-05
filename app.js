@@ -26,7 +26,7 @@ const html =
       ${posts.map(post => `
         <div class='news-item'>
           <p>
-            <span class="news-position"> <a href=/posts/${post.id}> ▲</span>
+            <span class="news-position">${post.id} <a href=/posts/${post.id}> ▲</span>
             ${post.title}</a>
             <small>(by ${post.name})</small>
           </p>
@@ -45,21 +45,40 @@ res.send(html);
 app.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   const post = postBank.find(id);
-  res.send(`
-  <div class='news-info'>
-  <p>
-    <span class="news-position">  ▲</span>
-    ${post.title}
-    <small>(by ${post.name})</small>
-  </p>
-  <small class="news-info">
-    ${post.upvotes} upvotes | ${post.date}
-  </small>
-</div>`);
+
+  if(!post.id){
+    throw new Error ('Not Found')
+  } else {
+  res.send(`<!DOCTYPE HTML>
+
+  <html>
+  <head>
+    <title>Wizard news</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <header>
+    <img src="/logo.png" />
+    Wizard News
+  </header>
+  <body>
+    <div class='news-list'>
+      <p>
+        <span class="news-position">${post.id}  ▲</span>
+        ${post.title}
+        <small>(by ${post.name})</small>
+      </p>
+      <p>
+        ${post.content}
+      </p>
+      <small>
+        ${post.date}
+      </small>
+    </div>
+  </body>
+</html>`
+    );
+  }  
 });
-
-
-
 
 
 const PORT = 1337;
